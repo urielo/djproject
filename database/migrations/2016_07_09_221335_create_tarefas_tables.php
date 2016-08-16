@@ -14,9 +14,13 @@ class CreateTarefasTables extends Migration
     {
         Schema::create('tarefas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tarefa');
             $table->integer('cliente_id');
-            $table->timestamps();
+            $table->string('descricao');
+            $table->string('tipo');
+            $table->string('status');
+            $table->timestamp('data_inicio');
+            $table->timestamp('data_alteracao');
+            $table->timestamp('data_fim');
         });
     }
 
