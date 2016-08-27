@@ -17,8 +17,30 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'Backend\CpnjController@index');
 
-Route::get('/testes',function (){
-   return view('testes');
+Route::get('/testes', function () {
+    return view('testes');
+});
+
+Route::get('/getdados/{cnpj}', [
+    'as' => 'get.cnpj',
+    'uses' => 'Backend\Testes@getDados'
+]);
+
+
+
+Route::group(['prefix'=>'cnpj'],function (){
+
+
+    Route::post('/create', [
+        'as' => 'cpnj.create',
+        'uses' => 'Backend\CpnjController@create'
+    ]);
+    
+    Route::get('/form', [
+        'as' => 'cpnj.form',
+        'uses' => 'Backend\CpnjController@showForm'
+    ]);
+    
 });

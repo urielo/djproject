@@ -7,4 +7,24 @@ if(! function_exists('theme')){
         return url($config['folder'].'/'.$config['active'].'/assests/'.$path);
     }
 
-}
+}if (!function_exists('getDataReady')):
+
+    function getDataReady($data)
+    {
+        $search = [
+            '/',
+            '.',
+            '-',
+            ',',
+            '\\',
+            '(',
+            ')',
+            ' ',
+        ];
+
+        return str_replace($search, '', $data);
+
+
+    }
+
+endif;
