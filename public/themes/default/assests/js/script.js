@@ -12,12 +12,9 @@ $(function () {
                     twice = 0;
                 })
 
-            } else if ($(this).attr('id') == 'excluir' && twice == 2) {
-                twice = twice + 1;
+            } else if ($(this).attr('id') == 'excluir') {
                 $(this).on('click', function () {
-
                     $($(this).attr('data-target')).remove()
-                    count = count - 1
                     console.log($(this).attr('data-target'));
                 })
             }
@@ -117,20 +114,38 @@ $(function () {
 
     }
 
-    // $(':button').each(function () {
-    //     if ($(this).attr('data-toggle') == 'modal') {
-    //         $(this).on('click', function () {
-    //             once = true;
-    //         })
-    //
-    //     } else if ($(this).attr('id') == 'excluir') {
-    //         $(this).on('click', function () {
-    //
-    //             $($(this).attr('data-target')).remove()
-    //             count = count - 1
-    //         })
-    //     }
-    // })
+
+
+    $(':button').each(function () {
+        if ($(this).attr('data-toggle') == 'modal') {
+            $(this).on('click', function () {
+                once = true;
+                var url = $(this).attr('href')
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (retorno) {
+                        $('.modal-content').html(retorno)
+                        $('#cadastros').modal('show');
+                        $('#cnpj-btn-submit').hide()
+                    }
+                })
+                return false
+
+            })
+
+        } else if ($(this).attr('id') == 'excluir') {
+            $(this).on('click', function () {
+
+                count = count - 1
+            })
+        }
+    })
+
+    $('.close').on('click', function () {
+        $('.model-content').html('');
+        twice = 0;
+    })
 
     $('.modal-content').on('mouseover', function () {
 
@@ -146,6 +161,7 @@ $(function () {
                 showAndHide(null, 'slow')
                 var cnpj = $($(this).attr('data-target')).cleanVal();
                 var url = $(this).attr('href') + '/' + cnpj
+                $('#cnpj-btn-submit').show()
 
                 if (cnpj.length > 1) {
 
@@ -178,6 +194,7 @@ $(function () {
             });
             $('#cnpj-btn-submit').on('click', function () {
                 count = count + 1
+
                 $('#cnpj-body-table').append('<tr id="cnpj-id-' + count + '"><th>' + count + '</th>')
                 $.each($('#form-cnpj').serializeArray(), function (key, value) {
                     if (value.name == 'cnpj' || value.name == 'rz_social') {
