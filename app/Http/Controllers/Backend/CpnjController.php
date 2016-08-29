@@ -38,8 +38,9 @@ class CpnjController extends Controller
     }
     
     public function create(Request $request){
-        
-        return $request->all();
+        echo '<pre>';
+        var_dump($request->all());
+        echo '</pre>';
     }
     
     public function showForm(){

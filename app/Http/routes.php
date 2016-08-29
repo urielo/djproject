@@ -44,3 +44,17 @@ Route::group(['prefix'=>'cnpj'],function (){
     ]);
     
 });
+Route::group(['prefix'=>'endereco'],function (){
+
+
+    Route::post('/create', [
+        'as' => 'endereco.create',
+        'uses' => 'Backend\CpnjController@create'
+    ]);
+    
+    Route::get('/form', [
+        'as' => 'endereco.form',
+        'uses' => 'Backend\EnderecoController@showForm'
+    ]);
+    
+});
