@@ -12,10 +12,10 @@ class CreateCnpjTables extends Migration
      */
     public function up()
     {
-        Schema::create('cnpj', function (Blueprint $table) {
+        Schema::create('cnpjs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cliente_id');
-            $table->string('incricao',14)->unique();
+            $table->string('inscricao',14)->unique();
             $table->timestamp('dt_abertura');
             $table->string('rz_social');
             $table->string('fantasia')->nullable();
@@ -48,6 +48,6 @@ class CreateCnpjTables extends Migration
      */
     public function down()
     {
-        Schema::drop('cnpj');
+        Schema::drop('cnpjs');
     }
 }

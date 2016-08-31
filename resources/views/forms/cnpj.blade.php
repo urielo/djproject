@@ -1,4 +1,4 @@
-{!! Form::open(['route'=>'cpnj.create', 'method'=>'post','id'=>'form-cnpj']) !!}
+
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -219,8 +219,7 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-    <button type="submit" class="btn btn-primary" id="cnpj-btn-submit">Enviar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Fechar</button>
+    <button type="button" class="btn btn-primary" id="cnpj-btn-enviar">Inserir</button>
 </div>
 
-{!! Form::close() !!}

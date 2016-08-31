@@ -24,6 +24,7 @@
     <script src="{{theme('js/bootstrap.min.js')}}"></script>
     <script src="{{theme('js/bootstrapvalidation.min.js')}}"></script>
     <script src="{{theme('js/mask.min.js')}}"></script>
+    <script src="{{theme('datatables/datatables.min.js')}}"></script>
     <script src="{{theme('js/script.js')}}"></script>
     <script src="{{theme('js/app.js')}}"></script>
 
@@ -44,7 +45,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 CNPJ - Project
             </a>
         </div>
@@ -52,7 +53,7 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li><a href="{{ url('/home') }}">Home</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>
 
                 @if(! Auth::guest())
                     <li class="dropdown">
@@ -61,7 +62,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="fa fa-btn fa-sign-out"></i>Novo</a></li>
+                            <li><a href="{{route('cliente.cadastro')}}"><i class="fa fa-btn fa-sign-out"></i>Novo</a></li>
                             <li><a href="#"><i class="fa fa-btn fa-sign-out"></i>CNPJ</a></li>
                             <li><a href="#"><i class="fa fa-btn fa-sign-out"></i>Todos</a></li>
                         </ul>
@@ -101,9 +102,22 @@
         </div>
     </div>
 </nav>
-
+@if(Session::has('sucesso'))
+    <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 alert alert-info" id="sucesso">
+        <button type="button" class="close" aria-label="Close" id="fechasecesso">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{Session::get('sucesso')}}
+    </div>
+@elseif(Session::has('error'))
+    <div class=" col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 alert alert-danger" id="sucesso">
+        <button type="button" class="close" aria-label="Close" id="fechasecesso">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{Session::get('error')}}
+    </div>
+@endif
 @yield('content')
-
 
 
 </body>

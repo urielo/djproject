@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/home', 'Backend\CpnjController@index');
+Route::get('/home', [ 'as'=>'home','uses'=>'Backend\ClienteController@index']);
 
 Route::get('/testes', function () {
     return view('testes');
@@ -30,31 +30,35 @@ Route::get('/getdados/{cnpj}', [
 
 
 
-Route::group(['prefix'=>'cnpj'],function (){
+Route::group(['prefix'=>'cadastro'],function (){
 
 
     Route::post('/create', [
-        'as' => 'cpnj.create',
+        'as' => 'cliente.create',
         'uses' => 'Backend\CpnjController@create'
     ]);
+
+    Route::get('/cliente', [
+        'as' => 'cliente.cadastro',
+        'uses' => 'Backend\ClienteController@cadastro'
+    ]);
     
-    Route::get('/form', [
+    Route::get('/cnpj/form', [
         'as' => 'cpnj.form',
         'uses' => 'Backend\CpnjController@showForm'
+        
     ]);
-    
-});
-Route::group(['prefix'=>'endereco'],function (){
 
-
-    Route::post('/create', [
-        'as' => 'endereco.create',
-        'uses' => 'Backend\CpnjController@create'
-    ]);
-    
-    Route::get('/form', [
+    Route::get('/endereco/form', [
         'as' => 'endereco.form',
         'uses' => 'Backend\EnderecoController@showForm'
     ]);
     
+    Route::get('/contato/form', [
+        'as' => 'contato.form',
+        'uses' => 'Backend\ContatoController@showForm'
+    ]);
+    
 });
+
+

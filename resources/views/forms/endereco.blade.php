@@ -91,7 +91,7 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Fechar</button>
     <button type="button" class="btn btn-primary" id="end-btn-enviar">Inserir</button>
 </div>
 

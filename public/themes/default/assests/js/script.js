@@ -3,13 +3,14 @@ $(function () {
     var count = 0;
     var countend = 0;
     var twice = 0;
+    var counttel = 0;
+    var countmail = 0;
+    var countcontact = 0;
 
 
     $(document).ajaxStart(function () {
-        // $('body').addClass('bgloading')
         $('body').prepend('<div class="bgloading" id="loading"></div>')
         $('.modal-content').prepend('<div class="bgloading" id="loading"></div>')
-        // $('.modal-content').css('overflow', 'hidden');
     })
 
     $(document).ajaxStop(function () {
@@ -95,22 +96,10 @@ $(function () {
                 $(this).attr('placeholder', '99.999.999/9999-00');
                 $(this).mask('99.999.999/9999-00');
 
-            } else if ($(this).attr('tipoinput') == "chassi") {
-                $(this).attr('placeholder', '9AAAA99AA99999999');
-                $(this).mask('XXXXXXXXXXXXXXXXX', {'translation': {X: {pattern: /[A-Za-z0-9]/}}})
-                $(this).keyup(function () {
-                    $(this).val($(this).val().toUpperCase())
-                })
-            } else if ($(this).attr('tipoinput') == "placa") {
-                $(this).attr('placeholder', 'AAA-9999');
-                $(this).mask('AAA-9999')
-                $(this).keyup(function () {
-                    $(this).val($(this).val().toUpperCase())
-                })
             } else if ($(this).attr('tipoinput') == "ddd") {
 
-                $(this).attr('placeholder', '(99)');
-                $(this).mask('(99)')
+                $(this).attr('placeholder', '99');
+                $(this).mask('99')
 
             } else if ($(this).attr('tipoinput') == "cel") {
 
@@ -121,6 +110,11 @@ $(function () {
 
                 $(this).attr('placeholder', '9999-9999');
                 $(this).mask('9999-9999')
+
+            }else if ($(this).attr('tipoinput') == "telcel") {
+
+                $(this).attr('placeholder', '9999-9999');
+                $(this).mask('9999-99999')
 
             } else if ($(this).attr('tipoinput') == "data-nascimento") {
 
@@ -133,24 +127,12 @@ $(function () {
 
                 $(this).mask('99/99/9999')
 
-            } else if ($(this).attr('tipoinput') == "data-validade-cartao") {
 
-                $(this).attr('placeholder', 'DD/MM/YYYY');
-
-                $(this).mask('99/99/9999')
             } else if ($(this).attr('tipoinput') == "cep") {
 
                 $(this).attr('placeholder', '00000-000');
                 $(this).mask('99999-999')
-            } else if ($(this).attr('tipoinput') == "renavan") {
-
-                $(this).attr('placeholder', '00000000000');
-                $(this).mask('99999999999')
-            } else if ($(this).attr('tipoinput') == "num-cartao") {
-
-                $(this).attr('placeholder', '0000 0000 0000 0000');
-                $(this).mask('9999 9999 9999 9999')
-            }
+           }
             // console.log($(this).attr('data'));
         })
 
@@ -193,6 +175,13 @@ $(function () {
                         $('.modal-content').html(retorno)
                         $('#cadastros').modal('show');
                         $('#cnpj-btn-enviar').hide()
+                        $('.close').on('click',function () {
+                            $('.modal-body').empty();
+                        })
+                        $('#close').on('click',function () {
+                            $('.modal-body').empty();
+                        })
+
                     }
                 })
                 return false
@@ -318,9 +307,9 @@ $(function () {
                 $('#end-body-table').append('<tr id="end-id-' + countend + '"><th>' + countend + '</th>')
 
                 $('.modal-content :input').each(function () {
-                    
+
                     if ($(this).attr('name')) {
-                        
+
                         $('<input type="hidden" name=endereco[' + countend + '][' + $(this).attr('name') + '] value="' + $(this).val() + '">').appendTo('#end-id-' + countend)
 
                         if (countend > 0) {
@@ -338,6 +327,40 @@ $(function () {
 
 
                 $('<td> <button type="button" class="btn btn-danger btn-xs" data-target="#end-id-' + countend + '" id="excluir"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></td> </tr>').appendTo('#end-id-' + countend)
+
+                $('.close').trigger('click')
+
+                return false;
+            })
+            $('#contac-btn-enviar').on('click', function () {
+                countcontact = countcontact + 1
+
+                $('#contato-body-table').append('<tr id="conta-id-' + countcontact + '"><th>' + countcontact + '</th>')
+
+                $('.modal-content :input').each(function () {
+
+                    if ($(this).attr('name')) {
+
+                        $('<input type="hidden" name=contato[' + countcontact + '][' + $(this).attr('name') + '] value="' + $(this).val() + '">').appendTo('#conta-id-' + countcontact)
+
+                        if (countcontact > 0) {
+                            $('#contato-table').removeClass('hide')
+                        } else {
+                            $('#contato-table').hide('slow')
+
+                        }
+                        if ($(this).attr('name') == 'nome_contato' || $(this).attr('name') == 'departamento') {
+
+                            $('<td>' + $(this).val() + '</td>').appendTo('#conta-id-' + countcontact)
+                        }
+
+
+                        $('.modal-body').empty()
+                    }
+                })
+
+
+                $('<td> <button type="button" class="btn btn-danger btn-xs" data-target="#conta-id-' + countcontact + '" id="excluir"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></td> </tr>').appendTo('#conta-id-' + countcontact)
 
                 $('.close').trigger('click')
 
@@ -361,11 +384,61 @@ $(function () {
                         $(buscacep.attr('data-target-muni')).val(response.localidade)
                         $(buscacep.attr('data-target-uf')).val(response.uf)
                         $(buscacep.attr('data-target-bair')).val(response.bairro)
-
                     }
 
 
                 });
+            })
+            $('#add-tel').on('click', function () {
+                counttel = counttel + 1
+
+                var divtel = '<div class="col-md-5 col-xs-5 col-sm-5" id="tel-' + counttel + '"> <div class="row" >' +
+                    '<div class="form-group form-group-sm col-md-3">' +
+                    '<label for="" class="label label-default">DDD </label>' +
+                    '<input class="form-control" id="tel-ddd-' + counttel + '" name="telefone][' + counttel + '][ddd]" type="text" tipoinput="ddd" value="">' +
+                    '</div>' +
+                    '<div class="form-group form-group-sm col-md-4">' +
+                    '<label for="" class="label label-default">Numero</label>' +
+                    '<input class="form-control" id="tel-num-' + counttel + '" name="telefone][' + counttel + '][numero]" type="text" tipoinput="telcel" value="">' +
+                    '</div>' +
+                    '<div class="input-group input-group-sm col-md-5">' +
+                    '<label for="" class="label label-default">Tipo de telefone</label>' +
+                    '<input class="form-control" id="tel-tipo-' + counttel + '" name="telefone][' + counttel + '][tipo]" type="text" value="">' +
+                    '<span class="input-group-btn" style="padding-top: 20px;">' +
+                    '<button type="button" class="btn btn-danger btn-xs" data-target="#tel-' + counttel + '" id="excluir" > <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>' +
+                    '</span>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div> '
+
+
+                $($(this).attr('data-target')).append(divtel)
+            })
+            $('#add-mail').on('click', function () {
+                countmail = countmail + 1
+
+                var divmail = '<div class="col-md-7 col-xs-7 col-sm-7" id="mail-' + countmail + '">' +
+                    '<div class="row">' +
+                        '<div class="col-md-7 col-xs-7 col-sm-7">' +
+                            '<div class="form-group form-group-sm">' +
+                                '<label for="" class="label label-default">E-mail </label>' +
+                                '<input class="form-control" id="email-' + countmail + '" name="email][' + countmail + '][email]" type="email" value="">' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-md-5 col-xs-5 col-sm-5">' +
+                            '<div class="input-group input-group-sm">' +
+                                '<label for="" class="label label-default">Tipo de email</label>' +
+                                '<input class="form-control" id="tipo-' + countmail + '" name="email][' + countmail + '][tipo]" type="text" value="">' +
+                                '<span class="input-group-btn" style="padding-top: 20px;">' +
+                                    '<button type="button" class="btn btn-danger btn-xs" data-target="#mail-' + countmail + '" id="excluir" > <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>' +
+                                '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                            '</div>'
+
+
+                $($(this).attr('data-target')).append(divmail)
             })
 
 

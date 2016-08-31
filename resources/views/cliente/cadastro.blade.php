@@ -3,11 +3,14 @@
 @section('content')
 
     <div class="container-fluid">
-        {!! Form::open(['route'=>'cpnj.create', 'method'=>'post','id'=>'form-cnpj']) !!}
+        {!! Form::open(['route'=>'cliente.create', 'method'=>'post','id'=>'form-cnpj']) !!}
 
         <div class="row">
             <div class="col-md-4 col-xs-4">
-
+                <div class="form-group form-group-sm">
+                    {{Form::label('nome_cliente','Cliente', ['class'=>'label label-info'])}}
+                    {{Form::text('nome_cliente','',['class'=>"form-control", 'id'=>'nome_cliente', 'placeholder'=>'Nome do cliente' ])}}
+                </div>
             </div>
         </div>
 
@@ -52,7 +55,7 @@
                         <div class="row">
                             <div class="col-md-6 pull-right">
                                 <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal"
-                                        href="{{route('cpnj.form')}}"
+                                        href="{{route('contato.form')}}"
                                         data-target="#cadastros">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Inserir
                                 </button>
@@ -61,7 +64,7 @@
                     </div>
 
                     <!-- Table -->
-                    <table class="table table-hover table-condensed">
+                    <table class="table table-hover table-condensed hide" id="contato-table">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -73,20 +76,8 @@
 
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-xs"
-                                        data-target="#cadastros" id="exluir">
-                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                </button>
-                            </td>
-                        </tr>
+                        <tbody id="contato-body-table">
+
                         </tbody>
                     </table>
                 </div>
@@ -140,23 +131,15 @@
         </div>
 
 
-        {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FormCliente">--}}
-        {{--Exibir Form: Cliente--}}
-        {{--</button>--}}
-
-
-
-
-
-    <!-- Modal -->
+        <!-- Modal -->
         <div class="modal fade" id="cadastros" tabindex="-1" role="dialog" aria-labelledby="Form" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content"></div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
-                {{--<button class="btn btn-primary pull-right"></button>--}}
                 {!! Form::submit('Enviar',['class'=>'btn btn-primary pull-right']) !!}
             </div>
         </div>
