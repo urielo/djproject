@@ -48,6 +48,6 @@ class CreateCnpjTables extends Migration
      */
     public function down()
     {
-        Schema::drop('cnpjs');
+        Schema::drop('cnpj');
     }
 }
